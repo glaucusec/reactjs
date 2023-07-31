@@ -9,21 +9,23 @@ const ExpenseItem = (props) => {
   let [price, setAmount] = useState(props.amount);
 
   const titleUpdater = () => {
-    setTitle('Updated');
+    setTitle("Updated");
   };
 
   const priceUpdater = () => {
     price += 100;
-    setAmount(price)
-  }
+    setAmount(price);
+  };
 
   return (
-    <Card className="expense-item">
-      <ExpenseDate date={props.date} />
-      <ExpenseDetails title={title} amount={price} />
-      <button onClick={titleUpdater}>Change Title</button>
-      <button onClick={priceUpdater}>Change Amount</button>
-    </Card>
+    <div className="expense">
+      <Card className="expense-item">
+        <ExpenseDate date={props.date} />
+        <ExpenseDetails title={title} amount={price} />
+        <button onClick={titleUpdater}>Change Title</button>
+        <button onClick={priceUpdater}>Change Amount</button>
+      </Card>
+    </div>
   );
 };
 

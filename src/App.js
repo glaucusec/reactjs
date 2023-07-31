@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import ExpenseItem from "./components/Expenses/ExpenseItem";
-import ExpenseForm from './components/Expenses/ExpenseForm';
+import NewExpense from "./components/NewExpense/NewExpense";
 
 const App = () => {
   const expenses = [
@@ -27,17 +27,18 @@ const App = () => {
 
   return (
     <div>
-      <h2>Let's get started!</h2>
-      <ExpenseForm />
-      {expenses.map((expense) => (
-        <ExpenseItem
-          title={expense.title}
-          amount={expense.amount}
-          date={expense.date}
-        />
-      ))}
+      <NewExpense />
+      <div className="expense">
+        {expenses.map((expense) => (
+          <ExpenseItem
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+          />
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
