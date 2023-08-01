@@ -3,7 +3,7 @@ import ExpenseItem from "./components/Expenses/ExpenseItem";
 import NewExpense from "./components/NewExpense/NewExpense";
 
 const App = () => {
-  let expenses = [
+  let DUMMY_EXPENSES = [
     {
       id: "e1",
       title: "Toilet Paper",
@@ -24,21 +24,21 @@ const App = () => {
       date: new Date(2021, 5, 12),
     },
   ];
-  const [exps, addNewExpense] = useState(expenses);
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
 
   const addExpenseHandler = (expense) => {
-    addNewExpense((prevState) => {
-      return [...prevState, expense];
-    })
-    console.log(exps);
+    setExpenses((prevState) => {
+      return [expense, ...prevState];
+    });
   };
 
   return (
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
       <div className="expense">
-        {exps.map((expense) => (
+        {expenses.map((expense) => (
           <ExpenseItem
+            key={expense.id}
             title={expense.title}
             amount={expense.amount}
             date={expense.date}
