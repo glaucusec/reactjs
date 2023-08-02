@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NewExpense from "./components/NewExpense/NewExpense";
 import FilterExpense from "./components/Expenses/FilterExpense";
 import ExpensesList from "./components/Expenses/ExpensesList";
+import AddExpenseButton from "./components/NewExpense/AddExpenseButton";
 
 const App = () => {
   let DUMMY_EXPENSES = [
@@ -44,15 +45,31 @@ const App = () => {
     setExpenses((prevState) => {
       return [expense, ...prevState];
     });
+    changeShowNewExpenseForm(false);
   };
 
   const filteredExpenses = expenses.filter((expense) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
+  let [showNewExpenseForm, changeShowNewExpenseForm] = useState(false);
+
+  let showNewExpenseFormHandler = (show) => {
+    changeShowNewExpenseForm(show);
+  };
+  let ExpenseContent =
+    showNewExpenseForm === false ? (
+      <AddExpenseButton handler={showNewExpenseFormHandler} />
+    ) : (
+      <NewExpense
+        handler={showNewExpenseFormHandler}
+        onAddExpense={addExpenseHandler}
+      />
+    );
+
   return (
     <div>
-      <NewExpense onAddExpense={addExpenseHandler} />
+      {ExpenseContent}
       <div className="expense">
         <FilterExpense
           selected={filteredYear}
