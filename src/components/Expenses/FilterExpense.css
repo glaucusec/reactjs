@@ -1,0 +1,13 @@
+.filter_text {
+  float: left;
+  width: 50%;
+}
+.filter_button {
+  float: right;
+  width: 50%;
+}
+
+.container {
+  width: 100%;
+  padding: 25px;
+}
