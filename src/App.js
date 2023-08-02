@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ExpenseItem from "./components/Expenses/ExpenseItem";
 import NewExpense from "./components/NewExpense/NewExpense";
 import FilterExpense from "./components/Expenses/FilterExpense";
+import ExpensesList from "./components/Expenses/ExpensesList";
 
 const App = () => {
   let DUMMY_EXPENSES = [
@@ -28,7 +28,7 @@ const App = () => {
       id: "e5",
       title: "Mobile",
       amount: 4500,
-      date: new Date(2022, 5, 12),
+      date: new Date(2021, 5, 12),
     },
   ];
 
@@ -58,14 +58,7 @@ const App = () => {
           selected={filteredYear}
           onFilterChange={filterChangeHandler}
         />
-        {filteredExpenses.map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            title={expense.title}
-            amount={expense.amount}
-            date={expense.date}
-          />
-        ))}
+        <ExpensesList items={filteredExpenses} />
       </div>
     </div>
   );

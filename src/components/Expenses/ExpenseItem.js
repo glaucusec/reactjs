@@ -6,12 +6,12 @@ import "./ExpenseItem.css";
 
 const ExpenseItem = (props) => {
   return (
-    <div className="expense">
+    <li className="expense">
       <Card className="expense-item">
         <ExpenseDate date={props.date} />
         <ExpenseDetails title={props.title} amount={props.amount} />
       </Card>
-    </div>
+    </li>
   );
 };
 
