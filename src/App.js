@@ -3,6 +3,7 @@ import NewExpense from "./components/NewExpense/NewExpense";
 import FilterExpense from "./components/Expenses/FilterExpense";
 import ExpensesList from "./components/Expenses/ExpensesList";
 import AddExpenseButton from "./components/NewExpense/AddExpenseButton";
+import ExpensesChart from "./components/Expenses/ExpensesChart";
 
 const App = () => {
   let DUMMY_EXPENSES = [
@@ -75,6 +76,7 @@ const App = () => {
           selected={filteredYear}
           onFilterChange={filterChangeHandler}
         />
+        <ExpensesChart expenses={filteredExpenses}/>
         <ExpensesList items={filteredExpenses} />
       </div>
     </div>
