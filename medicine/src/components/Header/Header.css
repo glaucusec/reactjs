@@ -1,0 +1,26 @@
+.h1-title {
+  color: white;
+}
+
+.header {
+  margin: 10px;
+}
+
+.button_div {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+    font-weight: bold;
+}
+
+.cart_button {
+    font-size: large;
+}
+
+.cart_item_count {
+    padding: 5px 20px;
+    margin: 0 5px;
+    background-color: antiquewhite;
+}
