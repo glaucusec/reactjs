@@ -13,23 +13,26 @@ function App() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("https://swapi.dev/api/films");
+      const response = await fetch(
+        "https://react-http-b1565-default-rtdb.firebaseio.com/movies.json"
+      );
 
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }
       const data = await response.json();
 
-      const transformedMovies = data.results.map((movieData) => {
-        return {
-          id: movieData.episode_id,
-          title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date,
-        };
-      });
+      const loadedMovies = [];
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].text,
+          releaseDate: data[key].date,
+        });
+      }
 
-      setMovies(transformedMovies);
+      setMovies(loadedMovies);
     } catch (error) {
       setError("Something went wrong!");
       // Retry after 5 seconds
@@ -60,9 +63,42 @@ function App() {
     }
   }
 
+  async function addMovieHandler(movie) {
+    const response = await fetch(
+      "https://react-http-b1565-default-rtdb.firebaseio.com/movies.json",
+      {
+        method: "POST",
+        body: JSON.stringify(movie),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.ok) {
+      fetchMoviesHandler();
+    }
+  }
+
+  async function onDeleteHandler(id) {
+    const response = await fetch(
+      `https://react-http-b1565-default-rtdb.firebaseio.com/movies/${id}.json`, // Adjust the URL to target a specific movie
+      {
+        method: "PUT", // Or "PATCH"
+        body: JSON.stringify(null), // Sending null to remove the data
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.ok) {
+      fetchMoviesHandler();
+    }
+  }
+
   let content;
   if (movies.length > 0) {
-    content = <MoviesList movies={movies} />;
+    content = <MoviesList movies={movies} onDeleteHandler={onDeleteHandler} />;
   }
   if (error) {
     content = (
@@ -78,7 +114,7 @@ function App() {
   return (
     <React.Fragment>
       <section>
-        <MovieForm />
+        <MovieForm onAddMovie={addMovieHandler} />
       </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>

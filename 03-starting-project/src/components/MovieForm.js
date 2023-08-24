@@ -1,11 +1,16 @@
 import React, { useState, Fragment } from "react";
 import "./MovieForm.css";
 
-export default function MovieForm() {
+export default function MovieForm(props) {
   function onSubmitHandler(e) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    console.log(formData);
+    const movie = {
+      title: e.target.title.value,
+      text: e.target.openingText.value,
+      date: e.target.date.value,
+    };
+
+    props.onAddMovie(movie);
   }
   return (
     <Fragment>
@@ -14,7 +19,7 @@ export default function MovieForm() {
         <input type="text" name="title" />
         <br />
         <label type="text">Opening Text</label>
-        <textarea name="opening-text" />
+        <textarea name="openingText" />
         <br />
         <label type="date">Release Date</label>
         <input type="text" name="date" />
