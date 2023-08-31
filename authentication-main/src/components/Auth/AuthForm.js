@@ -1,10 +1,15 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 
 import classes from "./AuthForm.module.css";
 
-const API_KEY = "AIzaSyC0MQ-1rPO3mkje4H03sOhbBSO6GJQX0Kw";
+import { AuthContext } from "../../context/ContextProvider";
+
+const API_KEY = 'AIzaSyC0MQ-1rPO3mkje4H03sOhbBSO6GJQX0Kw'
+
 
 const AuthForm = () => {
+  const authCtx = useContext(AuthContext);
+
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -36,7 +41,7 @@ const AuthForm = () => {
 
         let responseData = await response.json();
         if (response.ok) {
-          console.log(responseData.idToken);
+          authCtx.login(responseData.idToken);
           setStatus("Login Successful");
         } else {
           setStatus("Something Went Wrong");
