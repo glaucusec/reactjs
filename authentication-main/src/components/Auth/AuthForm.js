@@ -21,6 +21,28 @@ const AuthForm = () => {
     const enteredPassword = passwordInputRef.current.value;
 
     if (isLogin) {
+      setStatus("Sending Request");
+      try {
+        let response = await fetch(
+          `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: enteredEmail,
+              password: enteredPassword,
+            }),
+          }
+        );
+
+        let responseData = await response.json();
+        if (response.ok) {
+          console.log(responseData.idToken);
+          setStatus("Login Successful");
+        } else {
+          setStatus("Something Went Wrong");
+          alert(responseData.error.message);
+        }
+      } catch (e) {}
     } else {
       setStatus("Sending Request...");
       try {
