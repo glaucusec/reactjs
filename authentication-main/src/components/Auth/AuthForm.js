@@ -4,8 +4,7 @@ import classes from "./AuthForm.module.css";
 
 import { AuthContext } from "../../context/ContextProvider";
 
-const API_KEY = 'AIzaSyC0MQ-1rPO3mkje4H03sOhbBSO6GJQX0Kw'
-
+const API_KEY = "AIzaSyC0MQ-1rPO3mkje4H03sOhbBSO6GJQX0Kw";
 
 const AuthForm = () => {
   const authCtx = useContext(AuthContext);
@@ -35,11 +34,13 @@ const AuthForm = () => {
             body: JSON.stringify({
               email: enteredEmail,
               password: enteredPassword,
+              returnSecureToken: true,
             }),
           }
         );
 
         let responseData = await response.json();
+        console.log(responseData);
         if (response.ok) {
           authCtx.login(responseData.idToken);
           setStatus("Login Successful");

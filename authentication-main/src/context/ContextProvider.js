@@ -15,7 +15,14 @@ export default function AuthContextProvider(props) {
 
   const loginHandler = (token) => {
     setToken(token);
-    localStorage.setItem("token", token);
+    localStorage.setItem("token", token, 50000);
+  };
+
+  const startLogoutTimer = () => {
+    console.log('hey')
+    const timer = setTimeout(() => {
+      logoutHandler();
+    }, 5 * 60 * 1000);
   };
 
   const logoutHandler = () => {
@@ -29,6 +36,12 @@ export default function AuthContextProvider(props) {
     login: loginHandler,
     logout: logoutHandler,
   };
+
+  useEffect(() => {
+    if (token) {
+      startLogoutTimer();
+    }
+  }, [token]);
 
   return (
     <AuthContext.Provider value={contextValue}>
